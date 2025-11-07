@@ -1,21 +1,27 @@
-# Core API
+# --- API ---
 fastapi==0.115.0
 uvicorn==0.32.0
 python-multipart==0.0.9
+pydantic>=2.4
 
-# Image processing
-opencv-python-headless>=4.9.0.80
-pillow>=10.0.0
-numpy>=1.26.0
-
-# Face detection & embeddings (M1-safe)
-insightface==0.7.3
-onnxruntime==1.19.2
-# if onnxruntime fails on M1, try instead:
-# onnxruntime-silicon
-
-# ML utilities
+# --- Numerics / ML ---
+# NumPy 2.x supports Python 3.12 cleanly.
+numpy>=2.0,<3.0
 scikit-learn>=1.5.0
+pillow>=10.3
 
-# Optional: live reload for development
+# OpenCV headless avoids libGL issues on servers
+opencv-python-headless>=4.9,<4.11
+
+# InsightFace works with ORT >=1.20 on Linux and with silicon build on macOS M1
+insightface==0.7.3
+
+# --- ONNX Runtime (split by platform) ---
+# macOS Apple Silicon (local dev):
+onnxruntime-silicon>=1.16 ; platform_system == "Darwin" and platform_machine == "arm64"
+# everything else (Render Linux, Intel/AMD):
+onnxruntime>=1.21,<1.24 ; platform_system != "Darwin" or platform_machine != "arm64"
+
+# --- Dev convenience (optional) ---
+requests>=2.31
 watchfiles>=0.21.0
