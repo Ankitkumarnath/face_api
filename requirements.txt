@@ -1,0 +1,21 @@
+# Core API
+fastapi==0.115.0
+uvicorn==0.32.0
+python-multipart==0.0.9
+
+# Image processing
+opencv-python-headless>=4.9.0.80
+pillow>=10.0.0
+numpy>=1.26.0
+
+# Face detection & embeddings (M1-safe)
+insightface==0.7.3
+onnxruntime==1.19.2
+# if onnxruntime fails on M1, try instead:
+# onnxruntime-silicon
+
+# ML utilities
+scikit-learn>=1.5.0
+
+# Optional: live reload for development
+watchfiles>=0.21.0
